@@ -96,7 +96,7 @@ public class Json {
 				JSONObject obj = new JSONObject();
 
 				for (Integer s : cyc.keySet()) {
-					if (s >= 1) {
+					if (s <= cyc.size()) {
 						if (visited[s - 1] == false) {
 							visited[s - 1] = true;
 							String ss = s.toString();
@@ -105,12 +105,11 @@ public class Json {
 								obj = new JSONObject();
 								int adj = (int) cyc.get(s).get(i);
 								String childs = (DFS(cyc, adj, visited, path, iff)).toString();
-
 								if (!poss.isEmpty()) {
 									if (!poss.contains(childs)) {
 										poss.remove(0);
 										poss.add(0, childs);
-										String v = poss.toString();
+										String v = poss.get(0).toString();
 										obj = new JSONObject();
 										obj.put("children", v);
 										obj.put("root_id", ss);
@@ -128,7 +127,7 @@ public class Json {
 
 								} else {
 									poss.add(0, childs);
-									String v = poss.toString();
+									String v = poss.get(0).toString();
 									obj = new JSONObject();
 									obj.put("root_id", ss);
 									obj.put("children", v);
